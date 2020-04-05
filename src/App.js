@@ -11,7 +11,7 @@ import Tests01 from './Tests01';
 
 class App extends Component {
 	state = {
-		data: [],
+		data: {},
 	};
 
 	componentDidMount() {
@@ -37,11 +37,11 @@ class App extends Component {
 		return (
 			<div className='App'>
 				<h1>Test from app {this.state.data.name}</h1>
-				{/* {this.state.data.weather[0]['description'].map((item, num) => (
-					<div key={num}>
-						<p>{item.description}</p>
-					</div>
-				))} */}
+				<p>
+					{Object.keys(this.state.data).length
+						? this.state.data.weather[0]['description']
+						: ''}
+				</p>
 				{/* <Tests01 propTest={this.state.data.main} /> */}
 			</div>
 		);
