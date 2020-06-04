@@ -1,4 +1,6 @@
+/* eslint-disable jsx-a11y/accessible-emoji */
 import React, { useState } from 'react';
+import Card from './Card';
 import './styles.css';
 
 // const API_KEY = '9cae4d09a666e110149f7047739076f5';
@@ -9,56 +11,66 @@ import './styles.css';
 
 const App = () => {
   const [data, setData] = useState({
-    data: {},
+    info: [],
+    returnCodeOK: '',
+    emptyInput: false,
     input: ''
   });
+  console.log(data.info);
+  console.log('#: ', data.returnCodeOK);
 
-  const handleClick = async () => {
-    fetch(
+  const connectionAPI = async () => {
+    await fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${data.input}&appid=c982d29f34b457c7256dfdf78eff3288&units=metric`
     )
       .then(response => response.json())
-      .then(data => {
+      .then(response => {
         setData({
-          data: data
+          ...data,
+          info: response,
+          returnCodeOK: response.cod
         });
-        console.log(data);
       })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+      .catch(() => console.log('Something failed'));
   };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (data.input === '') {
+      data.emptyInput = true;
+    }
+    connectionAPI();
+  };
+
+  // const handleKeyPress = e => {
+  //   if (e.key === 'Enter') {
+  //     handleClick();
+  //   }
+  // };
 
   const handleInput = e => {
     setData({
-      input: e.target.value
+      [e.target.name]: e.target.value
     });
-  };
-
-  const handleKeyPress = e => {
-    if (e.key === 'Enter') {
-      handleClick();
-    }
   };
 
   return (
     <div className='App'>
-      <input type='text' onChange={handleInput} onKeyPress={handleKeyPress} />
-      <button type='button' onClick={handleClick}>
-        Bring data
-      </button>
-      {data.data ? (
-        <div>
-          <h1>City => {data.data.name}</h1>
-          <p>
-            {Object.keys(data.data).length
-              ? data.data.weather[0]['description']
-              : ''}
-          </p>
-        </div>
-      ) : (
-        <p>Not found</p>
-      )}
+      <form onSubmit={handleSubmit}>
+        <input
+          type='text'
+          // onKeyPress={handleKeyPress}
+          id='input'
+          name='input'
+          onChange={handleInput}
+        />
+        <button type='submit'>Weather</button>
+      </form>
+      <div>
+        {data.returnCodeOK === 200 && <Card {...data.info} />}
+        {data.returnCodeOK >= 400 && <p>City not found ⛅, try Medellin</p>}
+        {data.emptyInput && <p>Type some city</p>}
+      </div>
     </div>
   );
 };
