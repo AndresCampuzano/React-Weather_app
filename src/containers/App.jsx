@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 import React, { useState } from 'react';
-import Card from './Card';
-import './styles.css';
+import Card from '../components/Card';
+import '../components/static/styles/styles.css';
 
 // const API_KEY = '9cae4d09a666e110149f7047739076f5';
 // const temperatureUnit = 'metric';
@@ -12,7 +12,7 @@ import './styles.css';
 const App = () => {
   const [data, setData] = useState({
     info: [],
-    returnCodeOK: '',
+    returnCodeOK: 0,
     emptyInput: false,
     input: ''
   });

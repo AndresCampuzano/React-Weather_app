@@ -4,13 +4,13 @@ const Card = props => {
   return (
     <>
       <div>
-        <h1>{props.name}</h1>
-        <h2>{props.cod}</h2>
+        <h1>name: {props.name}</h1>
+        <h2>code response: {props.cod}</h2>
         <p>
           {Object.keys(props).length ? (
             <div>
-              <p>{props.weather[0]['description']}</p>
-              <p>{props.weather[0]['icon']}</p>
+              <p>description: {props.weather[0]['description']}</p>
+              <p>icon: {props.weather[0]['icon']}</p>
             </div>
           ) : (
             ''
