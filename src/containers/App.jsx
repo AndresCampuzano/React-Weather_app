@@ -19,8 +19,8 @@ const App = () => {
   console.log(data.info);
   console.log('#: ', data.returnCodeOK);
 
-  const connectionAPI = async () => {
-    await fetch(
+  const connectionAPI = () => {
+    fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${data.input}&appid=c982d29f34b457c7256dfdf78eff3288&units=metric`
     )
       .then(response => response.json())

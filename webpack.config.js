@@ -11,12 +11,12 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx']
   },
-  // devServer: {
-  //   host: '192.168.1.54',
-  //   port: 8080,
-  //   disableHostCheck: true,
-  //   // historyApiFallback: true,
-  // },
+  devServer: {
+    // host: '192.168.1.54',
+    port: 5000
+    // disableHostCheck: true
+    // historyApiFallback: true,
+  },
   module: {
     rules: [
       {
